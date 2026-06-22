@@ -30,8 +30,11 @@ browser.action.onClicked.addListener(function (tab) {
   browser.tabs.create({ url: 'options.html' });
 });
 
-browser.runtime.onInstalled.addListener(function () {
-  browser.tabs.create({ url: 'options.html' });
+browser.runtime.onInstalled.addListener(function (details) {
+  if (details.reason === 'install') {
+    browser.tabs.create({ url: 'options.html' });
+  }
+
   browser.contextMenus.create({
     id: parentMenuId,
     title: 'Medium Parser',
